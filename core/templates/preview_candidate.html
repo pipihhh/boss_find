@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看应聘者简历</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+    * {margin: 0;padding: 0;font-family: "Wawati SC";}
+        .contain {margin: 50px auto;height: 850px;width: 700px;border: 2px #5bc0de dashed;border-radius: 50px;box-shadow: #a6e1ec 40px 30px 10px;}
+        h2 {color: #5bc0de;width: 700px;margin: 40px auto;text-align: center;}
+        .table_area {height: 700px;width: 800px;color: #2a6496;font-size: 18px;}
+        p{display: inline-block;width: 120px;font-size: 22px;color: #5bc0de;margin-left:40px;margin-right:10px;margin-top: 20px;}
+        em{display: inline-block;width: 150px;}
+        button {height: 35px;width: 80px;border: 2px #5bc0de solid;border-radius: 10px;margin-left: 300px;margin-top: 10px;font-weight: bolder;font-size: 14px;outline: none;}
+        button:hover {background: #1a8fb4;color: white;font-weight: bolder;}
+        </style>
+</head>
+<body>
+<div class="contain">
+    <h2>--{{obj.user.username }}的个人简历--</h2>
+    <div class="table_area">
+        {% csrf_token %}
+        <div class="line"><p>用户名:</p><em>{{ obj.user.username }} </em></div>
+            <div class="line"><p>性别:</p><em> {{ obj.get_gender_display }}</em></div>
+            <div class="line"><p>年龄:</p><em> {{ obj.birthday }}</em><p>电话:</p><em>{{ obj.tel }}</em></div>
+            <div class="line"><p>毕业时间:</p><em> {{ obj.finishEdu|date:'Y-m-d' }}</em><p>邮箱:</p><em> {{ obj.email }}</em></div>
+            <div class="area"><p>在校经历:</p><em style="height:110px;width:450px;border:#5bc0de dotted 0.5px;border-radius: 10px;">{{ bio.在校经历 }}</em></div>
+            <div class="area"><p>项目经历:</p><em style="height:110px;width:450px;border:#5bc0de dotted 0.5px;border-radius: 10px;">{{ bio.项目经历 }}</em></div>
+            <div class="area"><p>教育经历:</p><em style="height:110px;width:450px;border:#5bc0de dotted 0.5px;border-radius: 10px;">{{ bio.教育经历 }}</em></div>
+        <button type="button" id="back"><a href="/company/"><span class="glyphicon glyphicon-arrow-left"></span></a></button>
+    </div>
+</div>
+
+</body>
+</html>

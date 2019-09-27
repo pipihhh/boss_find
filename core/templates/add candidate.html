@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加应聘者</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        html{width:100%;}
+        body{width: 100%;}
+        .box{width: 40%;height:350px; margin: 200px auto;padding: 30px;border: 2px #1a8fb4 solid;border-radius: 50px;box-shadow: #5bc0de 40px 25px 15px;}
+        .tip{width: inherit;font: 24px bolder;color: #1a8fb4;}
+        .box form{margin: 10px auto;}
+        .box form input{color: #285e8e;display: block;width: 80%;margin: 20px auto;font-size: 16px;height: 39px;border: 2px gray solid;border-radius: 10px;outline: none;}
+        .box button{display: block;height: 39px;width: 123px;margin:30px auto;color: #285e8e;font-size: 14px;background: none;border: 2px gray solid;border-radius: 12px;}
+        .box button:hover{background:#1a8fb4;color: white;font-weight: bolder;}
+        .box form input:hover{border: 2px #1a8fb4 dotted;}
+        .box form input:focus{border: 2px #5bc0de solid;}
+    </style>
+</head>
+<body>
+        <div class="box">
+            <div class="tip">请添加应聘者</div>
+            <form novalidate autocomplete="off" action="" method="post">
+                {% csrf_token %}
+                <input type="text" placeholder="&nbsp;请输入用户名" name="username"/>
+                <input type="text" placeholder="&nbsp;请输入账号" name="account"/>
+                <input type="password" placeholder="&nbsp;请输入密码" name="password"/>
+                <button type="submit">添加</button>
+            </form>
+        </div>
+</body>
+</html>

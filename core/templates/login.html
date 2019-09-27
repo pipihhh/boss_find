@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆页面</title>
+    <link rel="stylesheet" href="/static/css/jq22.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        *{font-family: "Wawati SC"}
+        .login:before{content: "BossFind";width:100%;float: left;font-size: 40px;font-weight: bolder;color: #5bc0de;text-align: center;position: absolute;top:20px;}
+    </style>
+
+</head>
+<body>
+
+<div id="login">
+    <div class="wrapper">
+        <div class="login" style="background-color: #5bc0de">
+            <form action="" method="post" class="container offset1 loginform" autocomplete="off" novalidate>
+                {% csrf_token %}
+                <div id="owl-login" class="">
+                    <div class="hand"></div>
+                    <div class="hand hand-r"></div>
+                    <div class="arms">
+                        <div class="arm"></div>
+                        <div class="arm arm-r"></div>
+                    </div>
+                </div>
+                <div class="pad">
+                    <div class="control-group">
+                        <div class="controls">
+                            <label for="email" class="control-label fa fa-user"></label>
+                            <input id="email" type="text" name="account" placeholder="请输入您的账号" tabindex="1"
+                                   autofocus="autofocus" class="form-control input-medium" value="{{ errors.account }}">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label for="password" class="control-label fa fa-asterisk"></label>
+                            <input id="password" type="password" name="password" placeholder="请输入您的密码" tabindex="2"
+                                   class="form-control input-medium" value="{{ errors.password }}">
+                        </div>
+                    </div>
+                </div>
+                <div style="color:#b94a48;font-size: 14px;font-weight:400;position:absolute;top:130px;left: 72px;">{{ errors.errors }}</div>
+                <div class="form-actions">
+                    <a href="/register/" tabindex="6" class="btn btn-link text-muted">Sign Up</a>
+                    <button type="submit" tabindex="4" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        $(function () {
+
+            $('#login #password').focus(function () {
+                $('#owl-login').addClass('password');
+            }).blur(function () {
+                $('#owl-login').removeClass('password');
+            });
+        });
+    </script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>应聘者个人中心</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        *{font-family: "Wawati SC"}
+        body{background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1561186426&di=f20d0e0fd23b52da0fce2c3b37fa4eec&imgtype=jpg&er=1&src=http%3A%2F%2Fp0.so.qhimgs1.com%2Ft0131cc6934cd076d8a.jpg");
+            background-size: 100%;background-repeat: no-repeat;filter:alpha(opacity=85); -moz-opacity:0.85; -khtml-opacity: 0.85; opacity: 0.85;background-attachment: fixed;}
+        nav{height: 50px; width: 100%;background: #5bc0de;position: fixed;top:0;}  nav p{color: #fff;font-size: 24px;font-weight:lighter;line-height: 50px;}
+        nav li{display: inline-block;height:40px;font-size: 16px;font-weight: bold;}
+        nav .func{width: 120px;height: 35px;float:right; margin-right: 50px;margin-left:20px;margin-top:13px;}
+        nav .func a:hover{font-size: 20px;text-decoration: none;}  .func a:link{color: #ffffff;}  .func a:visited{color: #ffffff;}
+        .nav_div ul .now a{color: #3a87ad;font-size: 19px;}
+        .nav_div ul .now a:hover{font-size: 19px;}
+    {#   message box #}
+        .message_box{width: 20%;margin: 0 4%;background: #f2f2f2;float:left;margin-top: 150px;padding: 20px;border-radius: 10px;}
+        .message_box p{font-size: 24px;color: #285e8e;}
+        .each{background: white;width:100%;height:100px;margin:5px auto;}
+        .blue{background: #5bc0de;display: inline-block;height:90px;width:5px;margin:5px 10px;}
+        .each_content{width:90%;float: right;}
+        .name{width: 150px;height:60px;line-height:60px;font-size: 30px;text-align: center;}
+        .position{width: 85px; height: 25px;margin:5px 20px;line-height:25px;text-align: center;font-size:15px;color:#5e5e5e;border: 1px dotted #1a8fb4;display: inline-block;border-radius: 10px;}
+    {#    以下是个人信息部分的样式   #}
+        .clock{position: fixed;top: 50px;right:0;}
+        .detail_content{background: #f2f2f2;width: 60%;height: 1200px;float: left;margin-top: 150px;margin-right:1px;padding-top:30px;padding-left:250px;font-size: 17px;border-radius: 10px;}
+        form{text-align: justify;}
+        .detail_content .div1{height: 55px;width: 550px;text-align: left;line-height: 55px;}
+        .detail_content .div1 p{display: inline-block; width: 80px;}
+        .detail_content .div2{height: 200px;width: 600px;padding:20px 0;vertical-align: top;}
+        .detail_content .div2 p{display: inline-block;width:80px;vertical-align: top;margin-top: 0;}
+        .detail_content input{height: 32px;width: 400px;border-radius: 10px;border: 1px #3a87ad solid;outline: none;}
+        .detail_content .sex{height: 32px;width: 200px;}
+        .gender{display: inline-block;}
+        textarea{width: 400px;height: 150px;border-radius: 15px;border:1px #3a87ad solid;outline: none;}
+        .detail-btn{width: 80px;height: 40px;background:#5bc0de;border-radius: 10px;margin-left: 220px;margin-top: 20px;}
+        textarea:hover,textarea:focus,
+        .detail_content input:hover,.detail_content input:focus{border: 2px dotted #5bc0de;}
+    </style>
+</head>
+<body>
+{#导航栏同index页#}
+<nav>
+    <div class="nav_div">
+        <ul>
+            <li><p>Welcome to BossFind,{{ request.user.username }}</p></li>
+            <li class="func"><a href="/logout/">退出登录</a></li>
+            <li class="func now"><a href="#">个人主页</a></li>
+            <li class="func"><a href="/candidate_index/">公司动态</a></li>
+        </ul>
+    </div>
+</nav>
+{#    message#}
+<div class="message_box">
+    <p>{{request.user.username}}今天找到工作了吗？</p>
+{#    <div class="each">#}
+{#        <div class="blue"></div>#}
+{#        <div class="each_content">#}
+{#            <div class="name">百度</div>#}
+{#            <div class="position"><span>web前端</span></div>#}
+{#            <div class="position"><span>审核中</span></div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="each">#}
+{#        <div class="blue"></div>#}
+{#        <div class="each_content">#}
+{#            <div class="name">百度</div>#}
+{#            <div class="position"><span>web前端</span></div>#}
+{#            <div class="position"><span>审核中</span></div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="each">#}
+{#        <div class="blue"></div>#}
+{#        <div class="each_content">#}
+{#            <div class="name">百度</div>#}
+{#            <div class="position"><span>web前端</span></div>#}
+{#            <div class="position"><span>审核中</span></div>#}
+{#        </div>#}
+{#    </div>#}
+</div>
+
+{#       detail#}
+<div class="detail_content">
+    <p style="font-size: 34px;color: #285e8e;text-align: left;padding-left: 120px;">--{{request.user.username}}的个人简历--</p>
+<form action="" method="post" novalidate autocomplete="off">
+    {% csrf_token %}
+<div class="div1" ><p>真实姓名: </p><input type="text" name="username"></div>
+    <div class="div1"><p>密码:</p> <input type="password" name="password"></div>
+    <div class="gender">男: <input class="sex" type="radio" name="gender" value="1" id="male"></div>
+<div class="gender">女: <input class="sex" type="radio" name="gender" value="2" id="fmale"></div>
+    <div  class="div1"><p>年龄: </p><input type="text" name="age"></div>
+    <div  class="div1"><p>电话: </p><input type="text" name="tel"></div>
+    <div  class="div1"><p>邮箱: </p><input type="text" name="email"></div>
+    <div  class="div1"><p>毕业时间: </p><input type="text" name="finishEdu" placeholder="格式为1996-06-06"></div>
+    <div  class="div2"><p>在校经历: </p><textarea id="school" cols="30" rows="10"></textarea></div>
+    <div  class="div2"><p>项目经历: </p><textarea id="project" cols="30" rows="10"></textarea></div>
+    <div  class="div2"><p>教育经历: </p><textarea id="edu" cols="30" rows="10"></textarea></div>
+                    {#    上面三个经历显示不出来内容   #}
+    <button class="detail-btn" type="button" id="btn"><span class="glyphicon glyphicon-ok" style="color: white;"></span></button>
+    </form></div>
+
+<script>
+    $.ajax({
+        url:"",
+        type:"get",
+        success: function (data) {
+            {#console.log(data);#}
+            $("[name='username']").val(data.username);
+            $("[name='password']").val(data.password);
+            $("[name='age']").val(data.age);
+            $("[name='tel']").val(data.tel);
+            $("[name='email']").val(data.email);
+            $("[name='finishEdu']").val(data.finishEdu);
+            if (data.gender === 1) {
+                $("#male").prop("checked", true);
+            }
+            else {
+                $("#fmale").prop("checked", true);
+            }
+            bio = JSON.parse(data.bio);
+            {#console.log(bio);#}
+            {#console.log(typeof bio);#}
+            $("#school").val(bio.在校经历);
+            $("#project").val(bio.项目经历);
+            $("#edu").val(bio.教育经历);
+        }
+    });
+
+    $.ajax({
+        url: "/api/get/detail/",
+        type: "get",
+        success: function (data) {
+            console.log(data);
+            var $msgBox = $(".message_box");
+            if (data.code) {
+                $.each(data.data, function (index, obj) {
+                    let tag = `<div class="each">
+                        <div class="blue"></div>
+                        <div class="each_content">
+                            <div class="name">${obj.companyName}</div>
+                            <div class="position"><span>${obj.positionName}</span></div>
+                            <div class="position"><span>${obj.status}</span></div>
+                        </div>
+                    </div>`;
+                    $msgBox.append(tag);
+                });
+            }
+            else {
+                let tag = "<span>还没有投递记录～</span>";
+                $msgBox.append(tag);
+            }
+        }
+    });
+
+    function get_bio () {
+        let temp = {
+            "在校经历":$("#school").val(),
+            "项目经历":$("#project").val(),
+            "教育经历":$("#edu").val()
+        };
+        return temp
+    }
+
+    $("#btn").on("click", function () {
+        $.ajax({
+            url: "",
+            type: 'post',
+            data: {
+                username:$("[name='username']").val(),
+                password:$("[name='password']").val(),
+                age:$("[name='age']").val(),
+                tel:$("[name='tel']").val(),
+                email:$("[name='email']").val(),
+                finishEdu:$("[name='finishEdu']").val(),
+                gender:$(":checked").val(),
+                bio: JSON.stringify(get_bio()),
+                "csrfmiddlewaretoken": $("[name='csrfmiddlewaretoken']").val()
+            },
+            success: function (data) {
+                if (data.code) {
+                    alert('修改成功!');
+                    location.href = data.msg;
+                }
+                else {
+                    alert(data.msg);
+                }
+            }
+        });
+    });
+</script>
+<div class="clock">
+<object id="honehoneclock" width="200" height="100" align="middle" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
+<param value="always" name="allowScriptAccess">
+<param value="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_tr.swf" name="movie">
+<param value="high" name="quality">
+<param value="#ffffff" name="bgcolor">
+<param value="transparent" name="wmode">
+<embed width="200" height="100" align="middle" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" allowscriptaccess="always" name="honehoneclock" bgcolor="#ffffff" quality="high" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_tr.swf" wmode="transparent">
+</object></div>
+
+</body>
+</html>

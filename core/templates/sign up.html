@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        * {margin: 0;padding: 0;}
+        .contain {margin: 50px auto;height: 1160px;width: 700px;border: 2px #5bc0de dashed;border-radius: 50px;box-shadow: #a6e1ec 40px 30px 10px;}
+        h2 {color: #5bc0de;width: 700px;margin: 40px auto;text-align: center;}
+        .table_area {height: 700px;width: 800px;color: #285e8e}
+        .line {height: 40px;width: 700px;text-align: left;margin: 10px auto;}
+        p {display: inline-block;height: 40px;width: 80px;text-align: center;font-weight: bolder;font-size: 16px;}
+        input {height: 40px;width: 200px;margin: 0px auto;border: 1px lightgray solid;border-radius: 10px;outline: none;}
+        .gender{height: 40px;width:80px;display: inline-block;}
+        input:hover, textarea:hover {border: 2px #1a8fb4 dotted;}
+        input:focus, textarea:focus {border: 2px #5bc0de solid;}
+        .bio .area {height: 200px;width: 800px;}
+        textarea {height: 150px;width: 480px;margin: 10px auto;border: 1px lightgray solid;border-radius: 10px;outline: none;}
+        .area > p {display: inline-block;height: 200px;width: 80px;margin-left: 50px;vertical-align: middle;}
+        button {height: 35px;width: 80px;border: 2px #5bc0de solid;border-radius: 10px;margin-left: 300px;margin-top: 10px;font-weight: bolder;font-size: 14px;outline: none;}
+        button:hover {background: #1a8fb4;color: white;font-weight: bolder;}
+    </style>
+</head>
+<body>
+<div class="contain">
+    <h2>欢迎注册BossFind</h2>
+    <div class="table_area">
+        {% csrf_token %}
+        <div class="line"><p>用户名</p><input  class="must-input" id="id_username" type="text" placeholder="&nbsp;真实姓名，如'李翠花'"
+                                           required="required" ;></div>
+        <div class="line"><p>账号</p><input class="must-input" id="id_account" type="text" placeholder="&nbsp;请输入您的账号" required="required" ;>
+        </div>
+        <div class="line"><p>密码</p><input class="must-input" id="id_password" type="password" placeholder="&nbsp;请输入您的密码"
+                                          required="required" ;></div>
+        <div class="line"><p>确认密码</p><input class="must-input" id="ensure_password" type="password" placeholder="&nbsp;请确认输入您的密码"
+                                            required="required" ;></div>
+        <div class="bio">
+            <div class="line"><p>性别</p>男<input class="gender" type="radio" value="1" name="gender" checked>&nbsp女<input type="radio" class="gender" value="2" name="gender"></div>
+            <div class="line"><p>年龄</p><input type="text" placeholder="&nbsp;199803" id="age"><p>电话</p><input id="tel" type="text" placeholder="&nbsp;12233445566"></div>
+            <div class="line"><p>毕业时间</p><input id="wish" type="date"><p>邮箱</p><input type="text" placeholder="&nbsp;123456@cc.com" id="email"></div>
+            <div class="area"><p>在校经历</p><textarea id="school" placeholder="&nbsp;请输入您的在校经历..."></textarea></div>
+            <div class="area"><p>项目经历</p><textarea id="item" placeholder="&nbsp;请输入您的项目经历..."></textarea></div>
+            <div class="area"><p>教育经历</p><textarea id="education" placeholder="&nbsp;请输入您的教育校经历..."></textarea></div>
+        </div>
+        <button type="button" id="register"><span class="glyphicon glyphicon-ok"></span></button>
+    </div>
+</div>
+<script>
+    function get_bio() {
+        let temp = {
+            "在校经历": $("#school").val(),
+            "项目经历": $("#item").val(),
+            "教育经历": $("#education").val()
+        };
+        return temp
+    }
+
+    function check_items() {
+        $.each($(".must-input"), function (index, tag) {
+//            console.log($(tag).val() == '');
+            let $temp = $(tag);
+           if ($temp.val() == '') {
+               alert($temp.prev().text()+"不可为空!");
+               return false
+           }
+        });
+        return true
+    }
+
+    $("#register").on("click", function (e) {
+        if (check_items()) {
+            var username = $("#id_username").val();
+            var account = $("#id_account").val();
+            var password = $("#id_password").val();
+            var en_sure_password = $("#ensure_password").val();
+            var bio_json = get_bio();
+
+            if (password !== en_sure_password) {
+                alert("两次密码不一致!");
+            } else {
+                $.ajax({
+                    url: "",
+                    type: "post",
+                    data: {
+                        username: username,
+                        password: password,
+                        account: account,
+                        gender: $(":checked").val(),
+                        email: $("#email").val(),
+                        tel: $("#tel").val(),
+                        finishEdu: $("#wish").val(),
+                        age: $("#age").val(),
+                        bio: JSON.stringify(bio_json),
+                        "csrfmiddlewaretoken": $("[name='csrfmiddlewaretoken']").val()
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data.code) {
+                            location.href = data.msg;
+                        }
+                        else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            }
+        }
+
+    });
+</script>
+</body>
+</html>

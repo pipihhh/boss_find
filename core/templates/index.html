@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BossFind招聘网站管理系统</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .div-table-content {
+            margin-top: 80px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">欢迎您，管理员</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active" url="/index/company"><a href="">公司管理<span class="sr-only">(current)</span></a></li>
+        <li><a href="/candidate/">应聘者管理</a></li>
+        <li><a href="/position/">职位管理</a></li>
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">个人中心</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/logout/">注销</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div>
+</nav>
+<div class="container div-table-content">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <a href="/add/company" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span></a>
+            {#   添加按钮样式 小加号   #}
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>BOSS</th>
+                        <th>账号</th>
+                        <th>公司名</th>
+                        <th>&nbsp</th>
+                        <th>&nbsp</th>
+                    </tr>
+                </thead>
+                <tbody id="table">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var url = $(".active").attr("url");
+    var forloop_count = 1;
+    $.ajax({
+        url: url,
+        type: 'get',
+        success: function (data) {
+            console.log(data);
+            $.each(data, function (index, list) {
+                console.log(index);
+                console.log(list);
+                var $content = $("#table");
+                var tag = `<tr><td>${forloop_count}</td><td>${list[0]}</td><td>${list[1]}</td><td>${list[2]}</td>
+<td><a href="/edit/company/${list[3]}/" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span></a></td><td><a href="/delete/company/${list[3]}/" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td></tr>`;
+                {#table中每一行后面的编辑删除按钮样式#}
+                {#var tag3 = "<p>identity:"+list[2]+"</p>";#}
+                $content.append(tag);
+                forloop_count += 1;
+            });
+            forloop_count = 1;
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎{{ request.user.username }}</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        *{font-family: "Wawati SC"}
+        body{background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1561186426&di=f20d0e0fd23b52da0fce2c3b37fa4eec&imgtype=jpg&er=1&src=http%3A%2F%2Fp0.so.qhimgs1.com%2Ft0131cc6934cd076d8a.jpg");
+            background-size: 100%;background-repeat: no-repeat;filter:alpha(opacity=90); -moz-opacity:0.9; -khtml-opacity: 0.9; opacity: 0.9;background-attachment: fixed;}
+        nav{height: 50px; width: 100%;background: #5bc0de;position: fixed;top:0;z-index: 1;}
+        p{color: #fff;font-size: 24px;font-weight:lighter;line-height: 50px;}
+        li{display: inline-block;height:40px;font-size: 16px;font-weight: bold;}
+        .func{width: 120px;float:right; margin-right: 50px;margin-left:20px;margin-top:13px;}
+        .func a:hover{font-size: 20px;text-decoration: none;}  .func a:link{color: #ffffff;}  .func a:visited{color: #ffffff;}
+        .nav_div ul .now a{color: #3a87ad;font-size: 19px;}
+        .nav_div ul .now a:hover{font-size: 19px;}
+        .nothing{background: rgba(255,255,255,0);height: 100px;width: 100%;}
+        {#    广告区域    #}
+        .menu{width: 250px;height:450px;position: absolute;left: 350px;top:100px;background-color: rgba(235,235,235,0.8);padding: 8px;z-index: 0;}
+        .menu b{font-size: 18px;display: block;height: 36px;line-height:36px;border-bottom: #cccccc 0.5px solid;}
+        .menu .every-position{display: inline-block;margin: 5px 3px;height: 25px;}
+        .menu .every-city{display: inline-block;margin: 5px 6px;height: 25px;}
+        .menu a{color: #1a5d7e;font-size: 15px;}
+        .menu a:hover{color: #5bc0de;text-decoration: none;}
+        .advertise{width: 710px;margin-left: 605px;}
+        .search{width:100%; height: 50px;}
+        .search-bar{width: 960px;height: 50px; margin: 10px auto;box-shadow: 1px 1px 10px 1px #f3f3f3;background-color: rgba(225,225,225,0.7);}
+        .search-logo{display: inline-block;width: 160px; height: 50px; line-height: 50px;padding: 0 20px;font-size: 18px;}
+        .search-box{display: inline-block;width: 680px; height: 50px; padding: 10px;}
+        .search-ipt{width: 660px;height:30px;border: none;outline: none;font-size: 17px;background:transparent;}
+        .search-btn{width: 110.5px;height:50px;line-height: 50px;font-size: 20px;color: white;background: #5bc0de;border: none;}
+        .search-bar:hover{box-shadow: 1px 1px 10px 1px #5bc0de;}
+        .menu .active{color: #5bc0de;font-weight: bolder;border: #5bc0de 2px solid;border-radius: 5px;}
+        {# 以下是每个公司的样式#}
+        .main{width: 100%;margin: 0;padding: 0;}
+        .each{height: 150px;width: 960px;margin: 15px auto;background: #f2f2f2;}
+        .each_image{display: inline-block;height: 140px;width:140px;margin:5px;}
+        .each_image img{height: 130px;width: 130px;z-index: -1;border-radius: 50%;margin:10px;}
+        .each_content{display: inline-block;float:right;height:140px;width:760px;margin: 5px 20px;background-color: white;}
+        .comp_name{height:100px;width:200px;margin:0 60px;line-height: 100px;}
+        .comp_name a{font-size: 34px;font-weight: 700;color:#3a87ad;text-decoration: none;}
+        .comp_name a:hover{cursor:pointer;color:#5bc0de;}
+        .comp_other{height:40px;width: 460px;float:left;}
+        .select_position{height:40px;width: 130px;float:left;}
+        select{outline:none;}
+        .btn_submit{float:left;}
+        .comp_other li{height:30px;font-size:14px;font-weight: lighter;color:black;line-height: 30px;margin:5px 30px;padding:0 10px;background: #f2f2f2;border-radius: 6px;}
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav_div">
+        <ul>
+            <li><p>Welcome to BossFind,{{ request.user.username }}</p></li>
+            <li class="func"><a href="/logout/">退出登录</a></li>
+            <li class="func"><a href="/candidate/detail/">个人主页</a></li>
+            <li class="func now"><a href="#">公司动态</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="nothing"><p>这是一个占地方的没用div</p></div>
+<div class="menu">
+    <div class="menu-top">
+        <b>职位筛选</b>
+{#        <div class="every-position"><a class="active" href="#">Java</a></div>#}
+        {{ position_html }}
+    </div>
+    <div class="menu-bottom">
+        <b>城市筛选</b>
+{#        <div class="every-city"><a class="active" href="#">北京</a></div>#}
+        {{ city_html }}
+    </div>
+</div>
+<div class="advertise">
+    <table>
+        <tbody>
+        <tr class="firstRow">
+            <td valign="top" rowspan="2" colspan="2" style="word-break: break-all;">
+                <a href="http://bj.maitian.cn/VIEW/Index/Index2.html" target="_blank" style="white-space: normal;">
+                    <img src="https://img.bosszhipin.com/beijin/upload/image/20190615/3b13aeec52ce26da2ab85dc38328c725.jpg?x-oss-process=image/format,jpg"/>
+                </a>
+            </td>
+            <td width="307" valign="top" rowspan="2" colspan="1" style="word-break: break-all;">
+                <a href="https://www.pingan.com/?WT.mc_id=SEM-BDBZ-PC0040&WT.srch=1" target="_blank" style="white-space: normal;">
+                    <img src="https://img.bosszhipin.com/beijin/upload/image/20190615/7d313a71486a934de0a04502473ec661.jpg?x-oss-process=image/format,jpg"/>
+                </a>
+            </td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td valign="top" rowspan="1" colspan="2" style="word-break: break-all;">
+                <a href="https://www.zhipin.com/gongsi/72b5c7467d8aeb7d0nd92Ni8.html" target="_blank" style="white-space: normal;">
+                    <img src="https://img.bosszhipin.com/beijin/upload/image/20190429/38777ca64c1bb6684ce833a1d8912415.png?x-oss-process=image/format,jpg">
+                </a>
+            </td>
+            <td width="237" valign="top" style="word-break: break-all;">
+                <a href="http://www.10086.cn/index_5074.htm" target="_blank" style="white-space: normal;">
+                    <img src="https://img.bosszhipin.com/beijin/upload/image/20190615/248a00c1b32e1c96759cce7f0a66d262.jpg?x-oss-process=image/format,jpg">
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td width="237" valign="top" style="word-break: break-all;">
+                <a href="http://bfhz.gamfe.com/yx-yxch2/index.html?from=yx.bdtg.pc.20190521.00001" target="_blank" style="white-space: normal;">
+                    <img src="https://img.bosszhipin.com/beijin/upload/image/20180725/2cdd4242466170221e45b359f4d5d0cd.jpg?x-oss-process=image/format,jpg">
+                </a>
+            </td>
+            <td width="237" valign="top" style="word-break: break-all;">
+                <a href="http://www.baojia-yjz.com/?source=baidu&plan=pinpai-hexin-PC&unit=hexinci&keyword=baojiaxiangshu&e_creative=25769289097&e_keywordid=101887032161&e_keywordid2=101887032161&bd_vid=8061296149380883427" target="_blank" style="white-space: normal;">
+                    <img src="https://img.bosszhipin.com/beijin/upload/image/20190518/0f53e2995fb2e04d6d0b3614fdd13395.jpg?x-oss-process=image/format,jpg">
+                </a>
+            </td>
+            <td width="237" valign="top" style="word-break: break-all;">
+                <a href="http://www.mobiletrain.org/?webbdtg=beiqu=yxx=20190320401&jzl_kwd=117026653851&jzl_ctv=28479880383&jzl_mtt=1&jzl_adt=cl2&jzl_ch=11&renqun_youhua=689119&bd_vid=10547295346498131247" target="_blank" style="white-space: normal;">
+                    <img src="https://img.bosszhipin.com/beijin/upload/image/20190107/1a53d9ec96d6613a1a642caebbe2341d.png?x-oss-process=image/format,jpg">
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+       {#    搜索条在这里！！！   #}
+<div class="search">
+    <div class="search-bar">{# <form action="/candidate_index/?{{ formRequest.urlencode }}" method="get"> #}
+        <div class="search-logo">
+            <span class="glyphicon glyphicon-search">&nbsp;</span>
+            <span>搜索公司</span>
+        </div>
+
+        <div class="search-box">
+            <input id="search-field" type="text" class="search-ipt" maxlength="30" autocomplete="off" placeholder="输入公司名或关键字" name="companyName__icontains" {% if request.GET.companyName__icontains %}value="{{ request.GET.companyName__icontains }}" {% endif %}>
+        </div>
+        <button class="search-btn" type="button">搜&nbsp;索</button>
+    </div>
+</div>
+{#以下为各种公司#}
+<div class="main">
+{#    <div class="each">#}
+{#        <div class="each_image"><img src="/static/images/default.jpeg"/></div>#}
+{#        <div class="each_content">#}
+{#            <div class="comp_name"><a href="#">{百度}</a></div>#}
+{#            <ul class="comp_other">#}
+{#                <li>北京市</li>#}
+{#                <li>10000人以上</li>#}
+{#                <li>互联网</li>#}
+{#            </ul>#}
+{##}
+{#            <div class="select_position"><form>#}
+{#    <select style="height: 30px;margin-top: 5px;">#}
+{#        <option class="gray" value="" disabled selected>--选择职位--</option>#}
+{#        <option class="gray">{}职位1</option>#}
+{#        <option class="gray">{}职位2</option>#}
+{#        <option class="gray">{}职位3</option>#}
+{#        <option class="gray">{}职位4</option>#}
+{#        <option class="gray">{}职位5</option>#}
+{#    </select></form>#}
+{#            </div>#}
+{##}
+{#            <div class="btn_submit"><button type="button" class="btn btn-info" style="height:30px;margin-top: 5px;"><span class="glyphicon glyphicon-ok"></span></button></div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="each">#}
+{#        <div class="each_image"><img src="/static/images/default.jpeg"/></div>#}
+{#        <div class="each_content">#}
+{#            <div class="comp_name"><a href="#">{某公司}</a></div>#}
+{#            <ul class="comp_other">#}
+{#                <li>某城市</li>#}
+{#                <li>100-499人</li>#}
+{#                <li>在线教育</li>#}
+{#            </ul>#}
+{##}
+{#                <div class="select_position"><form>#}
+{#    <select style="height: 30px;margin-top: 5px;">#}
+{#        <option class="gray" value="" disabled selected>--选择职位--</option>#}
+{#        <option class="gray">{}职位1</option>#}
+{#        <option class="gray">{}职位2</option>#}
+{#        <option class="gray">{}职位3</option>#}
+{#        <option class="gray">{}职位4</option>#}
+{#        <option class="gray">{}职位5</option>#}
+{#    </select></form>#}
+{#            </div>#}
+{##}
+{#            <div class="btn_submit"><button type="button" class="btn btn-info" style="height:30px;margin-top: 5px;"><span class="glyphicon glyphicon-ok"></span></button></div>#}
+{#        </div>#}
+{#    </div>#}
+    {% csrf_token %}
+    {{ company_info_html }}
+
+
+</div>
+
+<script>
+    $(".choose-job").on("click", function () {
+       var $select = $(this).parent().prev().children().children().filter(":selected");
+       console.log($select.attr("values"));
+       $.ajax({
+           url: "",
+           type: "post",
+           data: {
+               pk: $select.attr("values"),
+               "csrfmiddlewaretoken": $("[name='csrfmiddlewaretoken']").val()
+           },
+           success: function (data) {
+               console.log(data);
+               if (data.code) {
+                   location.href = data.msg;
+               }
+               else {
+                   alert(data.msg);
+               }
+           }
+       });
+    });
+    $(".search-btn").on("click", function () {
+        let companyName = $("#search-field").val();
+        location.href = "/candidate_index/" + "?{{ formRequest.urlencode }}" + "&companyName__icontains=" + companyName;
+
+
+    });
+</script>
+</body>
+</html>

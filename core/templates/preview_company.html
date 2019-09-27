@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看公司介绍</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+    * {margin: 0;padding: 0;font-family: "Wawati SC";}
+        .contain {margin: 50px auto;width: 700px;border: 2px #5bc0de dashed;border-radius: 50px;box-shadow: #a6e1ec 40px 30px 10px;}
+        h2 {color: #5bc0de;width: 700px;margin: 40px auto;text-align: center;}
+        .table_area {height: 700px;width: 800px;color: #2a6496;font-size: 18px;}
+        p{display: inline-block;width: 120px;font-size: 22px;color: #5bc0de;margin-left:40px;margin-right:10px;margin-top: 20px;}
+        em{display: inline-block;width: 150px;}
+        .position{width: 700px;text-align: left;}
+        .every-position{display: inline-block;margin: 5px 3px;padding: 2px;height: 25px;font-weight:bold;background:#a6e1ec;border-radius:5px;border: none;}
+        button {height: 35px;width: 80px;border: 2px #5bc0de solid;border-radius: 10px;margin-left: 300px;margin-top: 10px;font-weight: bolder;font-size: 14px;outline: none;}
+        button:hover {background: #1a8fb4;color: white;font-weight: bolder;}
+        </style>
+</head>
+<body>
+<div class="contain">
+    <h2>--{{ request.user.company.companyName }}公司简介--</h2>
+    <div class="table_area">
+        {% csrf_token %}
+        <div class="line"><p>Boss:</p><em>{{ company.user.username }}</em></div>
+            <div class="line"><p>公司名:</p><em> {{ company.companyName }}</em></div>
+            <div class="line"><p>地址:</p><em> {{ company.city }}</em></div>
+            <div class="line"><p>公司规模:</p><em> {{ company.get_size_display }}</em></div>
+            <div class="line"><p>公司类型:</p><em> {{ company.get_type_display }}</em></div>
+            <div class="position"><p>提供职位:</p>{{ position_html }}</div>
+            <div class="area"><p>公司简介:</p><em style="width:450px;border:#5bc0de dotted 0.5px;border-radius: 10px;">{{ company.desc }}</em></div>
+        <a href="/candidate_index/"><button type="button" id="back"><span class="glyphicon glyphicon-arrow-left"></span></button></a>
+    </div>
+</div>
+
+</body>
+</html>

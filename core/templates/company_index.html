@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>公司主页</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        *{font-family: "Wawati SC"}
+        body{background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1561186426&di=f20d0e0fd23b52da0fce2c3b37fa4eec&imgtype=jpg&er=1&src=http%3A%2F%2Fp0.so.qhimgs1.com%2Ft0131cc6934cd076d8a.jpg");
+            background-size: 100%;background-repeat: no-repeat;filter:alpha(opacity=90); -moz-opacity:0.9; -khtml-opacity: 0.9; opacity: 0.9;background-attachment: fixed;}
+        nav{height: 50px; width: 100%;background: #5bc0de;position: fixed;top:0;z-index: 1;}
+        p{color: #fff;font-size: 24px;font-weight:lighter;line-height: 50px;}
+        li{display: inline-block;height:40px;font-size: 16px;font-weight: bold;}
+        .func{width: 120px;float:right; margin-right: 50px;margin-left:20px;margin-top:13px;}
+        .func a:hover{font-size: 20px;text-decoration: none;}  .func a:link{color: #ffffff;}  .func a:visited{color: #ffffff;}
+        .nav_div ul .now a{color: #3a87ad;font-size: 19px;}
+        .nav_div ul .now a:hover{font-size: 19px;}
+        .message_box{width: 20%;margin: 0 4%;background: #f2f2f2;float:left;margin-top: 150px;padding: 20px;border-radius: 10px;}
+        .message_box p{font-size: 24px;color: #285e8e;}
+        .each{background: white;width:100%;height:100px;margin:5px auto;}
+        .blue{background: #5bc0de;display: inline-block;height:90px;width:5px;margin:5px 10px;}
+        .each_content{width:90%;float: right;}
+        .name{width: 150px;height:60px;line-height:60px;font-size: 30px;text-align: center;}
+        .name a{color: #1a5d7e;text-decoration: none;}
+        .name a:hover{color: #5bc0de;font-weight: bolder;cursor: pointer;}
+        .position{width: 85px; height: 25px;margin:5px 20px;line-height:25px;text-align: center;font-size:15px;color:#5e5e5e;border: 1px dotted #1a8fb4;display: inline-block;border-radius: 10px;}
+        .choose{height: 20px; width: 40px;border:none;font-size: 20px;margin-left: 10px;}
+    {#    公司介绍部分样式    #}
+        .clear{clear: both;}
+        .detail{background: #f2f2f2;width: 60%;height: 1200px;float: left;margin-top: 150px;margin-right:1px;padding-top:30px;padding-left:50px;font-size: 17px;border-radius: 10px;position: relative;}
+        .head{height: 130px;width: 130px;border-radius: 50%;overflow: hidden;margin-left: 100px;}
+        p{color: #1a5d7e;}
+        .head img{height: 130px;width: 130px;}
+        .company_name{height: 130px;width: 400px;position: absolute;top: 70px;left: 350px;}
+        .company_name p{font-size: 34px;font-weight: bolder;}
+        .each-line{width: 500px;height: 60px;margin: 20px auto;}
+        .each-line p{display: inline-block;}
+        .detail .area{height: 200px;}
+        textarea{height: 150px;width: 300px;margin-left: 20px;margin-top: 20px;border-radius: 10px;border: #1a5d7e 1px solid;outline: none;}
+        input{width:300px;margin-left: 20px;border-radius: 10px;border: #1a5d7e 1px solid;outline: none;}
+        input:hover,textarea:hover,input:focus,textarea:focus{border: #5bc0de 2px dotted;}
+        .size select{width: 150px; margin-left: 20px;margin-top: 20px;border: #1a5d7e 1px solid;border-radius: 12px;outline: none;}
+        .check-position select{height: 150px;width: 300px;margin-left: 20px;margin-top: 20px;border-radius: 12px;border: #1a5d7e 1px solid;outline: none;}
+        .check-position p{display: inline-block;margin-left: 220px;}
+        .detail button{background-color: #5bc0de;width: 80px;height: 40px;border-radius: 10px;border: none;margin-left: 430px;margin-top: 30px;outline: none;}
+        .detail button:hover{background-color: #a6e1ec;box-shadow: #5bc0de 1px 1px 10px 1px;}
+        #head:active{}
+    </style>
+</head>
+<body>
+<nav>
+    <div class="nav_div">
+        <ul>
+            <li><p>Welcome to BossFind,{{ request.user.username }}</p></li>
+            <li class="func"><a href="/logout/">退出登录</a></li>
+            <li class="func now"><a href="#">公司主页</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="message_box">
+    <p>选择{{request.user.company.companyName}}的应聘者</p>
+{#    <div class="each">#}
+{#        <div class="blue"></div>#}
+{#        <div class="each_content">#}
+{#            <div class="name"><a href="#" title="点击查看ta的简历">桃子</a></div>#}
+{#            <div class="position"><span>web前端</span></div>#}
+{#            <button class="choose"><span class="glyphicon glyphicon-heart" style="color: palevioletred;"></span></button>#}
+{#            <button class="choose"><span class="glyphicon glyphicon-remove" style="color: #3a87ad;"></span></button>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="each">#}
+{#        <div class="blue"></div>#}
+{#        <div class="each_content">#}
+{#            <div class="name"><a href="#" title="点击查看ta的简历">阿皮</a></div>#}
+{#            <div class="position"><span>web前端</span></div>#}
+{#            <div class="position"><span style="font-weight: bolder;font-size: 18px;color: #3a87ad;">已通过</span></div>#}
+{##}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="each">#}
+{#        <div class="blue"></div>#}
+{#        <div class="each_content">#}
+{#            <div class="name"><a href="#" title="点击查看ta的简历">臭狗</a></div>#}
+{#            <div class="position"><span>web前端</span></div>#}
+{#            <div class="position"><span style="font-weight: bolder;font-size: 18px;color: #3a87ad;">未通过</span></div>#}
+{#        </div>#}
+{#    </div>#}
+    {{ get_html.get_select_html }}
+</div>
+<div class="detail">
+    {% csrf_token %}
+    <form>
+    <div class="head">
+        <input id="f" type="file" onchange="chooseImg(this)" style="display: none;">
+        <img id="img" href="#" onclick="f.click()" src="{{ request.user.company.head }}"/>
+    </div>
+    <div class="company_name">
+        <p>{{ request.user.company.companyName }}公司简介</p>
+    </div>
+    <div class="each-line">
+        <p>Boss姓名</p><input type="text" name="username" autocomplete="off" value="{{ request.user.username }}" id="username">
+    </div>
+        <div class="each-line">
+        <p>密码</p><input type="password" name="password"  autocomplete="off" value="{{ request.user.password }}" id="password">
+    </div>
+    <div class="each-line">
+        <p>公司名称</p><input type="text" name="companyName"  autocomplete="off" value="{{ request.user.company.companyName }}" id="companyName">
+    </div>
+    <div class="each-line">
+        <p>所在城市</p><input type="text" name="city"  autocomplete="off" placeholder="请输入公司所在城市" value="{{ request.user.company.city }}" id="city">
+    </div>
+    <div class="each-line size">
+        <p>公司规模</p>
+        <select id="size">
+        {{ get_html.company_size }}
+        </select>
+    </div>
+    <div class="each-line size">
+        <p>公司类型</p>
+        <select id="type">
+        {{ get_html.company_type }}
+        </select>
+    </div>
+    <div class="each-line area">
+        <p>公司简介</p><textarea name="desc" id="desc">{{ request.user.company.desc }}</textarea>
+    </div>
+    <div class="check-position">
+        <p>提供职位</p>
+        <select multiple="multiple" id="position">
+{#            <option>Java</option>#}
+{#            <option>Python</option>#}
+{#            <option>web前端</option>#}
+            {{ get_html.position_provide }}
+        </select>
+    </div>
+    <button type="button" id="ensure-msg">
+        <span class="glyphicon glyphicon-ok" style="color: white;font-size: 18px;"></span>
+    </button>
+
+
+</form></div>
+
+<script>
+    var avatar = undefined;
+    $("#ensure-msg").on("click", function () {
+        var a = new Array($("#position").val());
+        var data = new FormData();
+        data.append("username", $("#username").val());
+        data.append("companyName", $("#companyName").val());
+        data.append("password", $("#password").val());
+        data.append("city", $("#city").val());
+        data.append("size", $("#size").val());
+        data.append("desc", $("#desc").val());
+        data.append("type", $("#type").val());
+        data.append("position", JSON.stringify(a));
+        data.append("csrfmiddlewaretoken", $("[name='csrfmiddlewaretoken']").val());
+        data.append("avatar", avatar);
+       $.ajax({
+           url: "",
+           type: "post",
+           contentType: false,
+           processData: false,
+           data: data,
+           success(data){
+             location.href = data;
+           }
+       });
+    });
+    {#    换头像    #}
+    function chooseImg(file){
+        var file=file.files[0];
+        var reader=new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload=function(){
+            var img=document.getElementById('img');
+            img.src=this.result;
+            avatar = file;
+        };
+    }
+</script>
+</body>
+</html>
